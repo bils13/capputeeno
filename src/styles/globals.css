@@ -1,9 +1,14 @@
-/* :root {
-
-} */
+:root {
+  --gray: #5D5D6D;
+  --white: #FFFFFF;
+}
 
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  max-width: '100vw';
+}
+
+body {
+  padding: 0 10rem;
 }
