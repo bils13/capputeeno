@@ -14,6 +14,8 @@ export const HomePageContainer = styled('section', {
 export const NavContainer = styled('section', {
     width: '100%',
     display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
 })
 
 export const NavWrapper = styled('div', {
@@ -46,6 +48,19 @@ export const Link = styled<NavLinkProps>('li',{
                 borderBottom: '4px solid var(--orange-low)'
             }
         }
+    },
+
+    '&:hover': {
+        cursor: 'pointer',
+    }
+})
+
+export const Organize = styled('div', {
+    display: 'flex',
+    alignItems: 'center',
+
+    '& p':{
+        fontSize: '16px',
     },
 
     '&:hover': {

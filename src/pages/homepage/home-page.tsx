@@ -1,6 +1,7 @@
 import { Header, saira } from "@/components/header/header";
-import { HomePageContainer, Link, NavContainer, NavWrapper } from "./home-page.style";
+import { HomePageContainer, Link, NavContainer, NavWrapper, Organize } from "./home-page.style";
 import { useStore } from "@/hooks/useStore";
+import { ArrowIcon } from "@/components/arrow-icon";
 
 const NavLinks = [
     {title: "Todos os Produtos", category: "all"},
@@ -13,8 +14,8 @@ export function HomePage(){
     return(
         <>
             <Header />
-            <HomePageContainer>
-                <NavContainer className={saira.className}>
+            <HomePageContainer className={saira.className}>
+                <NavContainer>
                     <NavWrapper>
                         {
                             NavLinks.map((option) => {
@@ -30,6 +31,10 @@ export function HomePage(){
                             })
                         }
                     </NavWrapper>
+                    <Organize>
+                        <p>Organizar por </p>
+                        <ArrowIcon />
+                    </Organize>
                 </NavContainer>
             </HomePageContainer>
         </>
