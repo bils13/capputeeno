@@ -1,10 +1,10 @@
-import { Header } from "@/components/header";
-
-// const inter = Inter({ subsets: ['latin'] })
-
+import StoreContextProvider from "@/context/storeContext";
+import { HomePage } from "./homepage/home-page";
 
 export default function Home() {
   return (
-    <Header />
+    <StoreContextProvider>
+      <HomePage />
+    </StoreContextProvider>
   )
 }

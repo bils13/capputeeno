@@ -1,11 +1,11 @@
 import { styled } from '@stitches/react';
 
 export const HeaderContainer = styled('header', {
-    padding: '0.5rem 0',
     backgroundColor: `var(--white)`,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    padding: '0.5rem 10rem',
 
     '& h1': {
         color: `var(--gray)`,

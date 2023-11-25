@@ -1,11 +1,11 @@
 import { BagWrapper, HeaderContainer, HeaderWrapper, Input, InputContainer } from "./header.style";
 import { Saira_Stencil_One } from 'next/font/google'
 import { Saira } from 'next/font/google' 
-import { GlassIcon } from "./glass-icon";
-import { BagIcon } from "./bag-icon";
+import { GlassIcon } from "../glass-icon";
+import { BagIcon } from "../bag-icon";
 
-const saira_stencil = Saira_Stencil_One({ preload: false, weight: '400', })
-const saira = Saira({ preload: false, weight: '400', })
+export const saira_stencil = Saira_Stencil_One({ preload: false, weight: '400', })
+export const saira = Saira({ preload: false, weight: '400', })
 
 export function Header(){
     return(
