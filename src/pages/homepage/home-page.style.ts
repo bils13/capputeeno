@@ -15,15 +15,3 @@ export const NavContainer = styled('section', {
 })
 
 
-export const Organize = styled('div', {
-    display: 'flex',
-    alignItems: 'center',
-
-    '& p':{
-        fontSize: '16px',
-    },
-
-    '&:hover': {
-        cursor: 'pointer',
-    }
-})
