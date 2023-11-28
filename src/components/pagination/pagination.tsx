@@ -1,5 +1,6 @@
 import { useStore } from "@/hooks/useStore";
-import { PContainer, Page } from "./pagination.style";
+import { ArrowContainer, ArrowWrapper, PContainer, Page } from "./pagination.style";
+import { ArrowIcon } from "../arrow-icon";
 
 const Pages = [
     {'option': 1, 'id':1},
@@ -13,6 +14,15 @@ export function Pagination(){
 
     const { pagination, handleSetPagination } = useStore()
 
+    const handleClickArrow = (value: string) => {
+        if(value==='less' && (pagination > 1 && pagination <=5 )){
+            handleSetPagination(pagination - 1)
+        }
+        else if(value==='more' && (pagination >= 1 && pagination <5 )){
+            handleSetPagination(pagination + 1)
+        }
+    }
+    
     return(
         <PContainer>
             {
@@ -29,6 +39,18 @@ export function Pagination(){
                 }) 
                     
             }
+            <ArrowContainer>
+                <ArrowWrapper 
+                    rotates='90'
+                    onClick={() => handleClickArrow('less')}>
+                    <ArrowIcon />
+                </ArrowWrapper>
+                <ArrowWrapper 
+                    rotates='270'
+                    onClick={() => handleClickArrow('more')}>
+                    <ArrowIcon />
+                </ArrowWrapper>
+            </ArrowContainer>
         </PContainer>
     )
 }

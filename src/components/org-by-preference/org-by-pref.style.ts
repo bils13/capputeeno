@@ -29,6 +29,7 @@ export const Menu = styled<MenuProps>('ul', {
     width: '176px',
     boxShadow: '0px 4px 12px 0px rgba(0, 0, 0, 0.10)',
     borderRadius: '4px',
+    zIndex: '999',
     variants: {
         disable: {
             true: {
