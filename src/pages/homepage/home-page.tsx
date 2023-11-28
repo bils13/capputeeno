@@ -3,6 +3,7 @@ import { HomePageContainer, NavContainer } from "./home-page.style";
 import { FilterByType } from "@/components/filter-by-type/filter-by-type";
 import { OrganizeByPref } from "@/components/org-by-preference/org-by-pref";
 import { Pagination } from "@/components/pagination/pagination";
+import { Cards } from "@/components/cards/cards";
 
 export function HomePage(){
     return(
@@ -14,6 +15,7 @@ export function HomePage(){
                     <OrganizeByPref />
                 </NavContainer>
                 <Pagination />
+                <Cards />
             </HomePageContainer>
         </>
     )
