@@ -1,36 +1,21 @@
 import { Header, saira } from "@/components/header/header";
-import { HomePageContainer, Link, NavContainer, NavWrapper } from "./home-page.style";
-import { useStore } from "@/hooks/useStore";
-
-const NavLinks = [
-    {title: "Todos os Produtos", category: "all"},
-    {title: "Camisetas", category: "t-shirts"},
-    {title: "Canecas", category: "mugs"},
-]
+import { HomePageContainer, NavContainer } from "./home-page.style";
+import { FilterByType } from "@/components/filter-by-type/filter-by-type";
+import { OrganizeByPref } from "@/components/org-by-preference/org-by-pref";
+import { Pagination } from "@/components/pagination/pagination";
+import { Cards } from "@/components/cards/cards";
 
 export function HomePage(){
-    const { typeLink, handleSetTypeLink } = useStore()
     return(
         <>
             <Header />
-            <HomePageContainer>
-                <NavContainer className={saira.className}>
-                    <NavWrapper>
-                        {
-                            NavLinks.map((option) => {
-                                return (
-                                    <Link
-                                        key={option.category}
-                                        isActive={option.category === typeLink ? typeLink : ''}
-                                        onClick={() => handleSetTypeLink(option.category)}
-                                    >
-                                        {option.title}
-                                    </Link>
-                                )
-                            })
-                        }
-                    </NavWrapper>
+            <HomePageContainer className={saira.className}>
+                <NavContainer>
+                    <FilterByType />
+                    <OrganizeByPref />
                 </NavContainer>
+                <Pagination />
+                <Cards />
             </HomePageContainer>
         </>
     )
