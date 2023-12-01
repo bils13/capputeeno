@@ -1,18 +1,16 @@
-import Image from "next/image";
-import { CardWrapper, ImageWrapper, Line, Price, TextWrapper } from "./card.style";
-import TShirt from "@/assets/tShirt.png"
+import { getPriceInReal } from "@/utils/price-in-real";
+import { CardWrapper, Image, Line, Price, TextWrapper } from "./card.style";
+import { ProductProps } from "@/interfaces/product";
 
 
-export function Card(){
+export function Card(props: ProductProps){
     return(
         <CardWrapper>
-            <ImageWrapper>
-                <Image src={TShirt} alt='Camiseta' fill={true}/>
-            </ImageWrapper>
+            <Image src={props.image_url} alt={props.name}/>
             <TextWrapper>
-                <label>Caneca de cerâmica rústica</label>
+                <label>{props.name}</label>
                 <Line />
-                <Price>R$ 40,00</Price>
+                <Price>R$ {getPriceInReal(props.price_in_cents)}</Price>
             </TextWrapper>
         </CardWrapper>
     )

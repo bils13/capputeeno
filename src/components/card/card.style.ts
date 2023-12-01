@@ -6,9 +6,8 @@ export const CardWrapper = styled('div', {
     background: 'var(--white)',
 })
 
-export const ImageWrapper = styled('div', {
-    position: 'relative',
-    width: '100%',
+export const Image = styled('img', {
+    width: '256px',
     height: '300px',
 })
 

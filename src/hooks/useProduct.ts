@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
-import axios from "axios";
+import axios, { AxiosPromise } from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { ProductFetchResponse } from "@/interfaces/product-props";
 
 export const query = `    
         query{
@@ -13,15 +14,22 @@ export const query = `
             }
         }`
 
-export function useProduct() {
-    const data: any = axios({
+const fetchData = (): AxiosPromise<ProductFetchResponse> => {
+    const response = axios({
         method: 'post',
         url: "http://localhost:3333/",
             data: { query },
-        }).then((response: any) => {
-            console.log(response.data)
-    })
-
-    return data
+        })
+    return response
 }
 
+export function useProduct() {
+    const query = useQuery({
+        queryFn: fetchData,
+        queryKey: ['product-data']
+    })
+    return {
+        ...query,
+        data: query.data?.data.data.allProducts
+    }
+}
