@@ -4,7 +4,7 @@ export const HomePageContainer = styled('section', {
     backgroundColor: '#F0F0F5',
     width: '100%',
     padding: '2rem 10rem',
-    height: '100vh',
+    minHeight: '100vh',
 })
 
 export const NavContainer = styled('section', {
