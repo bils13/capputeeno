@@ -7,8 +7,9 @@ import { useStore } from "@/hooks/useStore";
 
 
 export function Cards(){
-    const { pagination } = useStore()
-    const { data } = useProduct(pagination);
+    const { pagination, typeLink, popularity } = useStore()
+    const { data } = useProduct(pagination, typeLink, popularity);
+    console.log(popularity)
     return(
         <CardsContainer>
             {
