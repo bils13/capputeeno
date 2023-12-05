@@ -28,7 +28,7 @@ function StoreContextProvider({ children }: StoreContextProviderProps) {
     function handleSetTypeLink(value: linkOptionProps) {
         setTypeLink(value)
         setPagination(1)
-        typeLink==='all' ? '' : setPopularity('') 
+        setPopularity(undefined)
     }
 
     function handleSetPagination(value: PaginationProps) {

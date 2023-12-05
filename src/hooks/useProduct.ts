@@ -1,20 +1,16 @@
 import axios, { AxiosPromise } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { ProductFetchResponse } from "@/interfaces/product-props";
-
-const getFieldByPopularity = (value: any) => {
-    if (value === 'minor_price') return {field: "price_in_cents", order: "ASC"}
-    if (value === 'biggest_price') return {field: "price_in_cents", order: "DSC"}
-    if (value === 'news') return {field: "created_at", order: "ASC"}
-}
-
+import { getFieldByPopularity } from "@/utils/field-by-popularity";
 
 const fetchData = (currentPage: number, typeLink: string, popularity: any): AxiosPromise<ProductFetchResponse> => {
     let query
+    let limitPerPage
+    typeLink==="all" ? limitPerPage = 12 : limitPerPage = 7
     if(popularity!=undefined){
         query = `    
                 query{
-                    allProducts(page: ${currentPage-1}, perPage: 7 ${typeLink==="all" ? '' : ',filter: { category: "' + typeLink + '" }'}, sortField: "${popularity.field}", sortOrder: "${popularity.order}"){
+                    allProducts(page: ${currentPage-1}, perPage: ${limitPerPage} ${typeLink==="all" ? '' : ',filter: { category: "' + typeLink + '" }'}, sortField: "${popularity.field}", sortOrder: "${popularity.order}"){
                         id
                         name
                         price_in_cents
@@ -25,10 +21,9 @@ const fetchData = (currentPage: number, typeLink: string, popularity: any): Axio
                 }`
         console.log(query)
     }else {
-        if(typeLink==='all'){
-            query = `    
+        query = `    
                 query{
-                    allProducts(page: ${currentPage-1}, perPage: 12) {
+                    allProducts(page: ${currentPage-1}, perPage: ${limitPerPage} ${typeLink==="all" ? '' : ',filter: { category: "' + typeLink + '" }'}) {
                         id
                         name
                         price_in_cents
@@ -37,20 +32,6 @@ const fetchData = (currentPage: number, typeLink: string, popularity: any): Axio
                         sales
                     }
                 }`
-                // ${currentePage-1} == é necessário subtrair 1 inteiro pois a logica da paginação começa em 1 e no graphiql a variável (page) começa em 0
-        } else {
-            query = `    
-                query{
-                    allProducts(page: ${currentPage-1}, perPage: 5, filter: { category: "${typeLink}" }){
-                        id
-                        name
-                        price_in_cents
-                        image_url
-                        category
-                        sales
-                    }
-                }`
-        }
     }
 
     const response = axios({
