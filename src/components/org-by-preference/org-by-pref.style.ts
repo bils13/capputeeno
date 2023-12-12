@@ -21,22 +21,23 @@ export const Organize = styled('div', {
 export const Menu = styled<MenuProps>('ul', {
     backgroundColor: 'var(--white)',
     position: 'absolute',
-    top: '100%',
     right: '0px',
     listStyle: 'none',
     textAlign: 'left',
-    padding: '0.8rem 1rem',
     width: '176px',
     boxShadow: '0px 4px 12px 0px rgba(0, 0, 0, 0.10)',
     borderRadius: '4px',
     zIndex: '999',
+    top: '100%',
     variants: {
         disable: {
             true: {
-                display: 'block',
+                padding: '0.8rem 1rem',
+                transition: '0.3s all',
+                visibility: 'visible',
             },
             false: {
-                display: 'none',
+                visibility: 'hidden',
             }
         }
     }

@@ -8,4 +8,5 @@ export const CardsContainer = styled('section',{
     maxWidth: '100%',
     gridGap: '32px',
     justifyContent: 'space-between',
+    marginBottom: '4.5rem',
 })

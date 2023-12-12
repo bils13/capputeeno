@@ -16,6 +16,7 @@ export function HomePage(){
                 </NavContainer>
                 <Pagination />
                 <Cards />
+                <Pagination />
             </HomePageContainer>
         </>
     )

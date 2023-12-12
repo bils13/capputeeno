@@ -1,15 +1,12 @@
-import { useProduct } from "@/hooks/useProduct";
+import { useProducts } from "@/hooks/useProducts";
 import { Card } from "../card/card";
 import { CardsContainer } from "./cartd.style";
 import { ProductProps } from "@/interfaces/product";
 import { useStore } from "@/hooks/useStore";
 
-
-
 export function Cards(){
     const { pagination, typeLink, popularity } = useStore()
-    const { data } = useProduct(pagination, typeLink, popularity);
-    console.log(popularity)
+    const { data } = useProducts(pagination, typeLink, popularity);
     return(
         <CardsContainer>
             {

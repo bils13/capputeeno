@@ -1,54 +1,34 @@
-import axios, { AxiosPromise } from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { ProductFetchResponse } from "@/interfaces/product-props";
-import { getFieldByPopularity } from "@/utils/field-by-popularity";
+import { ProductFetchResponse } from "@/interfaces/product-props"
+import { useQuery } from "@tanstack/react-query"
+import axios, { AxiosPromise } from "axios"
 
-const fetchData = (currentPage: number, typeLink: string, popularity: any): AxiosPromise<ProductFetchResponse> => {
-    let query
-    let limitPerPage
-    typeLink==="all" ? limitPerPage = 12 : limitPerPage = 7
-    if(popularity!=undefined){
-        query = `    
-                query{
-                    allProducts(page: ${currentPage-1}, perPage: ${limitPerPage} ${typeLink==="all" ? '' : ',filter: { category: "' + typeLink + '" }'}, sortField: "${popularity.field}", sortOrder: "${popularity.order}"){
-                        id
-                        name
-                        price_in_cents
-                        image_url
-                        category
-                        sales
-                    }
-                }`
-        console.log(query)
-    }else {
-        query = `    
-                query{
-                    allProducts(page: ${currentPage-1}, perPage: ${limitPerPage} ${typeLink==="all" ? '' : ',filter: { category: "' + typeLink + '" }'}) {
-                        id
-                        name
-                        price_in_cents
-                        image_url
-                        category
-                        sales
-                    }
-                }`
-    }
-
+const fetchData = (id: string): AxiosPromise<ProductFetchResponse> => {
+    const query = `
+        query{
+            Product(id: "${id}"){
+                name
+                description
+                image_url
+                price_in_cents
+            }
+        }
+    `
     const response = axios({
         method: 'post',
-        url: "http://localhost:3333/",
-            data: { query },
-        })
+        url: 'http://localhost:3333/',
+        data: { query }
+    })
     return response
 }
 
-export function useProduct(currentPage: number, typeLink: string, popularity?: string) {
+export function useProduct(id: any){
     const query = useQuery({
-        queryFn: () => fetchData(currentPage, typeLink, getFieldByPopularity(popularity)),
-        queryKey: ['product-data', typeLink, currentPage, popularity]
+        queryFn: () => fetchData(id),
+        queryKey: ['product-data-id', id],
     })
     return {
         ...query,
-        data: query.data?.data.data.allProducts
+        data: query.data?.data.data.Product
     }
 }
+
