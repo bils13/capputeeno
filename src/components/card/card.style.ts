@@ -4,9 +4,18 @@ import { styled } from "@stitches/react";
 export const CardWrapper = styled('div', {
     width: '256px',
     background: 'var(--white)',
+    borderRadius: '8px',
+
+    '&:hover': {
+        cursor: 'pointer',
+        transform: 'scale(1.1)',
+        transition: '0.3s all',
+        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+    }
 })
 
 export const Image = styled('img', {
+    borderRadius: '8px 8px 0 0',
     width: '256px',
     height: '300px',
 })

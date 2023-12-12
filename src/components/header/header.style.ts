@@ -62,5 +62,9 @@ export const BagWrapper = styled('div', {
         background: 'red',
         borderRadius: '100%',
         textAlign: 'center',
+    },
+
+    '&:hover': {
+        cursor: 'pointer',
     }
 })

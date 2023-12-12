@@ -1,37 +1,34 @@
-import axios, { AxiosPromise } from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { ProductFetchResponse } from "@/interfaces/product-props";
+import { ProductFetchResponse } from "@/interfaces/product-props"
+import { useQuery } from "@tanstack/react-query"
+import axios, { AxiosPromise } from "axios"
 
-const fetchData = (currentPage: number): AxiosPromise<ProductFetchResponse> => {
-    const query = `    
+const fetchData = (id: string): AxiosPromise<ProductFetchResponse> => {
+    const query = `
         query{
-            allProducts(page: ${currentPage-1}, perPage: 12) {
-                id
+            Product(id: "${id}"){
                 name
-                price_in_cents
+                description
                 image_url
-                category
-                sales
+                price_in_cents
             }
-        }`
-        // ${currentePage-1} == é necessário subtrair 1 inteiro pois a logica da paginação começa em 1 e no graphiql a variável (page) começa em 0
-        
-
+        }
+    `
     const response = axios({
         method: 'post',
-        url: "http://localhost:3333/",
-            data: { query },
-        })
+        url: 'http://localhost:3333/',
+        data: { query }
+    })
     return response
 }
 
-export function useProduct(currentPage: number) {
+export function useProduct(id: any){
     const query = useQuery({
-        queryFn: () => fetchData(currentPage),
-        queryKey: ['product-data', currentPage]
+        queryFn: () => fetchData(id),
+        queryKey: ['product-data-id', id],
     })
     return {
         ...query,
-        data: query.data?.data.data.allProducts
+        data: query.data?.data.data.Product
     }
 }
+
