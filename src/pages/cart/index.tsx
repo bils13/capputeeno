@@ -20,15 +20,12 @@ export default function Cart(){
     }, [])
 
     function handleDeleteItem(id: string){
-        const cartItems = localStorage.getItem('cart-items')
-        if (cartItems) { 
-            const cartItemsObj = JSON.parse(cartItems)  
-            const indexItem = cartItemsObj.findIndex((current: ProductInCart)  => current.id === id)
-            cartItemsObj.splice(indexItem, 1)
-            setCart([...cartItemsObj])
-            localStorage.setItem('cart-items', JSON.stringify(cartItemsObj))
-            attTotalCartPrice(cartItemsObj)
-        }
+        const cartItems = [...cart]  
+        const indexItem = cartItems.findIndex((current: ProductInCart)  => current.id === id)
+        cartItems.splice(indexItem, 1)
+        setCart([...cartItems])
+        localStorage.setItem('cart-items', JSON.stringify(cartItems))
+        attTotalCartPrice(cartItems)
     }
 
     const attTotalCartPrice = (cart: ProductInCart[]) => {
