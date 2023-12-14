@@ -4,13 +4,40 @@ import BackPage from "@/components/back-pag/back-page";
 import { BinIcon } from "@/components/bin-icon";
 import { Line } from "@/components/card/card.style";
 import CartContextProvider from "@/context/cartContext";
-import { useReadLocalStorage } from 'usehooks-ts'
 import { ProductInCart } from "@/interfaces/product";
 import { getPriceInReal } from "@/utils/price-in-real";
+import { useEffect, useState } from "react";
 
+type CartPriceType = string
 
 export default function Cart(){
-    const cart = useReadLocalStorage<ProductInCart[]>('cart-items')
+    const [cart, setCart] = useState<ProductInCart[]>([])
+    const [cartPrice, setCartPrice] = useState<CartPriceType>()
+    useEffect(() => {
+        const cartItems = localStorage.getItem('cart-items')
+        cartItems != null && setCart(JSON.parse(cartItems))       
+        attTotalCartPrice(JSON.parse(cartItems!)) 
+    }, [])
+
+    function handleDeleteItem(id: string){
+        const cartItems = localStorage.getItem('cart-items')
+        if (cartItems) { 
+            const cartItemsObj = JSON.parse(cartItems)  
+            const indexItem = cartItemsObj.findIndex((current: ProductInCart)  => current.id === id)
+            cartItemsObj.splice(indexItem, 1)
+            setCart([...cartItemsObj])
+            localStorage.setItem('cart-items', JSON.stringify(cartItemsObj))
+            attTotalCartPrice(cartItemsObj)
+        }
+    }
+
+    const attTotalCartPrice = (cart: ProductInCart[]) => {
+        const totalPrice = cart.reduce((total, produto) => {
+            return parseInt(produto.price_in_cents) * produto.quantity + total
+        }, 0)
+        setCartPrice(() => getPriceInReal(totalPrice))
+    }
+
     return(
         <CartContextProvider>
             <Header />
@@ -19,15 +46,15 @@ export default function Cart(){
                 <Wrapper>
                     <CartList>
                         <h1>Seu carrinho</h1>
-                        <TotalItems>Total (3 produtos) <span>R$ 161,00</span></TotalItems>
+                        <TotalItems>Total ({cart.length} produto{cart.length>1 ? 's': ''}) <span>{cartPrice ? `R$ ${cartPrice}` : ''}</span></TotalItems>
                         {
-                        cart?.map((item: ProductInCart) => (
-                            <Card>
+                        cart.map((item: ProductInCart) => (
+                            <Card key={item.id}>
                             <img src={item.image_url} alt={item.name} />
                             <CardInfoWrapper>
                                 <h2>
                                     {item.name}
-                                    <span><BinIcon /></span>
+                                    <span onClick={() => handleDeleteItem(item.id)}><BinIcon /></span>
                                 </h2>
                                 <Description>{item.description}</Description>
                                 <Wrapper alignItems='alignItems'>
