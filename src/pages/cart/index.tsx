@@ -9,6 +9,7 @@ import { getPriceInReal } from "@/utils/price-in-real";
 import { useEffect, useState } from "react";
 
 type CartPriceType = string
+type ItemQuantityType = number[]
 
 export default function Cart(){
     const [cart, setCart] = useState<ProductInCart[]>([])
@@ -35,6 +36,28 @@ export default function Cart(){
         setCartPrice(() => getPriceInReal(totalPrice))
     }
 
+    const changeItemsQuantity = (id: string, quantitySelected: string) => {     
+        cart.map((current) => 
+            current.id===id ? current.quantity = parseInt(quantitySelected) : ''
+        )
+        setCart([...cart])
+        localStorage.setItem('cart-items', JSON.stringify(cart))
+    }
+
+    const listItemQuantity = (id: string) => {
+        const newCart = cart.find((cart) => cart.id === id)
+        const newQuantity = []
+        for(let i=1; i<=newCart!.quantity+2; i++){
+            newQuantity.push(i)
+        }    
+        return (
+            newQuantity.map((quantity: number) => (
+                <option key={quantity} selected={newCart?.quantity===quantity ? true : false}>{quantity}</option>
+            )) 
+        )
+    }
+    
+
     return(
         <CartContextProvider>
             <Header />
@@ -45,27 +68,24 @@ export default function Cart(){
                         <h1>Seu carrinho</h1>
                         <TotalItems>Total ({cart.length} produto{cart.length>1 ? 's': ''}) <span>{cartPrice ? `R$ ${cartPrice}` : ''}</span></TotalItems>
                         {
+                            
                         cart.map((item: ProductInCart) => (
                             <Card key={item.id}>
-                            <img src={item.image_url} alt={item.name} />
-                            <CardInfoWrapper>
-                                <h2>
-                                    {item.name}
-                                    <span onClick={() => handleDeleteItem(item.id)}><BinIcon /></span>
-                                </h2>
-                                <Description>{item.description}</Description>
-                                <Wrapper alignItems='alignItems'>
-                                    <QuantitySelect>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </QuantitySelect>
-                                    <UnitPrice>R$ {getPriceInReal(item.price_in_cents)}</UnitPrice>
-                                </Wrapper>
-                            </CardInfoWrapper>
-                        </Card>
+                                <img src={item.image_url} alt={item.name} />
+                                <CardInfoWrapper>
+                                    <h2>
+                                        {item.name}
+                                        <span onClick={() => handleDeleteItem(item.id)}><BinIcon /></span>
+                                    </h2>
+                                    <Description>{item.description}</Description>
+                                    <Wrapper alignItems='alignItems'>
+                                        <QuantitySelect onChange={(e) => changeItemsQuantity(item.id, e.target.value)}>
+                                            { listItemQuantity(item.id) } 
+                                        </QuantitySelect>
+                                        <UnitPrice>R$ {getPriceInReal(parseInt(item.price_in_cents) * item.quantity)}</UnitPrice>
+                                    </Wrapper>
+                                </CardInfoWrapper>
+                            </Card>
                         ))
                         }
                     </CartList>
