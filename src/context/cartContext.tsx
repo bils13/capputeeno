@@ -7,11 +7,27 @@ interface CartContextProvider {
 
 interface ContextProps {
     handleSetCart: (product?: ProductProps, id?: any) => void,
+    totalItems: number
 }
 
 export const CartContext = createContext({} as ContextProps)
 
 function CartContextProvider({children}: CartContextProvider) {
+
+    const [totalItems, setTotalItems] = useState(0)
+
+    useEffect(() => {
+        const cartItem = localStorage.getItem('cart-items') 
+        if(cartItem) { 
+            const currentCart = JSON.parse(cartItem)
+            console.log(currentCart)
+            const totalItem = currentCart.reduce((total: number, produto: ProductInCart) => {
+                return produto.quantity + total
+            }, 0)
+            setTotalItems(totalItem)
+        }
+    })
+
 
     function handleSetCart(product?: ProductProps, id?: any){
         const cartItem = localStorage.getItem('cart-items') 
@@ -33,10 +49,8 @@ function CartContextProvider({children}: CartContextProvider) {
     }
 
 
-
-
     return(
-        <CartContext.Provider value={{handleSetCart}}>
+        <CartContext.Provider value={{handleSetCart, totalItems}}>
             {children}
         </CartContext.Provider>
     )

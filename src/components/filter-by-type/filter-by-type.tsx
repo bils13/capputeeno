@@ -9,7 +9,6 @@ const NavLinks = [
 
 export function FilterByType(){
     const { typeLink, handleSetTypeLink } = useStore()
-    console.log(typeLink)
     return(
             <LinkWrapper>
                 {

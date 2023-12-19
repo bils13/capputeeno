@@ -7,9 +7,10 @@ import CartContextProvider from "@/context/cartContext";
 import { ProductInCart } from "@/interfaces/product";
 import { getPriceInReal } from "@/utils/price-in-real";
 import { useEffect, useState } from "react";
+import { useCart } from "@/hooks/useCart";
+import StoreContextProvider from "@/context/storeContext";
 
 type CartPriceType = string
-type ItemQuantityType = number[]
 
 export default function Cart(){
     const [cart, setCart] = useState<ProductInCart[]>([])
@@ -36,12 +37,15 @@ export default function Cart(){
         setCartPrice(() => getPriceInReal(totalPrice))
     }
 
-    const changeItemsQuantity = (id: string, quantitySelected: string) => {     
+    const changeItemsQuantity = (id: string, quantitySelected: string) => { 
+        console.log(cart)    
         cart.map((current) => 
             current.id===id ? current.quantity = parseInt(quantitySelected) : ''
         )
         setCart([...cart])
+        attTotalCartPrice(cart)
         localStorage.setItem('cart-items', JSON.stringify(cart))
+        console.log(cart.length)
     }
 
     const listItemQuantity = (id: string) => {
@@ -56,9 +60,9 @@ export default function Cart(){
             )) 
         )
     }
-    
 
     return(
+        <StoreContextProvider>
         <CartContextProvider>
             <Header />
             <CartContainer className={saira.className}>
@@ -68,7 +72,6 @@ export default function Cart(){
                         <h1>Seu carrinho</h1>
                         <TotalItems>Total ({cart.length} produto{cart.length>1 ? 's': ''}) <span>{cartPrice ? `R$ ${cartPrice}` : ''}</span></TotalItems>
                         {
-                            
                         cart.map((item: ProductInCart) => (
                             <Card key={item.id}>
                                 <img src={item.image_url} alt={item.name} />
@@ -93,7 +96,7 @@ export default function Cart(){
                         <h2>Resumo do pedido</h2>
                         <Wrapper>
                             <PriceResume>Subtotal de produtos:</PriceResume>
-                            <PriceResume>R$ 161,00</PriceResume>
+                            <PriceResume>R$ {cartPrice}</PriceResume>
                         </Wrapper>
                         <Wrapper margin='margin' alignItems='alignItems'>
                             <PriceResume>Entrega</PriceResume>
@@ -102,7 +105,7 @@ export default function Cart(){
                         <Line />
                         <Wrapper alignItems='alignItems'>
                             <PriceResume bold='bold'>Total</PriceResume>
-                            <PriceResume bold='bold'>R$ 200,00</PriceResume>
+                            <PriceResume bold='bold'>R$ {cartPrice && parseFloat(cartPrice?.replace(',','.')) + 40}</PriceResume>
                         </Wrapper>
                         <Button>Finalizar a compra</Button>
                         <Wrapper direction='column'>
@@ -115,5 +118,6 @@ export default function Cart(){
                 </Wrapper>
             </CartContainer>
         </CartContextProvider>
+        </StoreContextProvider>
     )
 }

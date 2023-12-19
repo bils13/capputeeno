@@ -15,6 +15,16 @@ export const HeaderContainer = styled('header', {
         '&:hover': {
             cursor: 'pointer',
         }
+    },
+
+    '@media (max-width: 820px)':{
+        padding: '0.25rem 5rem',
+
+        '& h1': {
+            color: `var(--gray)`,
+            textTransform: 'lowercase',
+            fontSize: '22px',
+        }
     }
 })
 
@@ -23,6 +33,10 @@ export const HeaderWrapper = styled('div', {
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: '1rem',
+
+    '@media (max-width: 820px)':{
+        gap: '0.5rem',
+    }
 })
 
 export const InputContainer = styled('div', {
@@ -33,6 +47,14 @@ export const InputContainer = styled('div', {
     alignItems: 'center',
     background: '#F3F5F6',
     borderRadius: '8px',
+
+    '@media (max-width: 768px)':{
+        display: 'none'
+    },
+
+    '@media (max-width: 820px)':{
+        padding: '0.1rem 0.25rem',
+    }
 })
 
 export const Input = styled('input', {

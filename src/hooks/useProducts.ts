@@ -2,6 +2,8 @@ import axios, { AxiosPromise } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { ProductsFetchResponse } from "@/interfaces/product-props";
 import { getFieldByPopularity } from "@/utils/field-by-popularity";
+import { useStore } from "./useStore";
+import { useDeferredValue } from "react";
 
 const fetchData = (currentPage: number, typeLink: string, popularity: any): AxiosPromise<ProductsFetchResponse> => {
     let query
@@ -42,12 +44,17 @@ const fetchData = (currentPage: number, typeLink: string, popularity: any): Axio
 }
 
 export function useProducts(currentPage: number, typeLink: string, popularity?: string) {
+    const { search } = useStore()
+    const searchDeferred = useDeferredValue(search)
     const query = useQuery({
         queryFn: () => fetchData(currentPage, typeLink, getFieldByPopularity(popularity)),
         queryKey: ['product-data', typeLink, currentPage, popularity]
     })
+
+    const products = query.data?.data.data.allProducts
+    const filteredProducts = products?.filter(product => product.name.toLocaleLowerCase().includes(searchDeferred!.toLocaleLowerCase()))
+
     return {
-        ...query,
-        data: query.data?.data.data.allProducts
+        data: filteredProducts
     }
 }
