@@ -17,7 +17,17 @@ export const HeaderContainer = styled('header', {
         }
     },
 
-    '@media (max-width: 820px)':{
+    '@media (max-width: 300px)':{
+        padding: '0.2rem 1rem',
+
+        '& h1': {
+            color: `var(--gray)`,
+            textTransform: 'lowercase',
+            fontSize: '22px',
+        }
+    },
+
+    '@media only screen and (min-width: 300px) and (max-width: 1024px)':{
         padding: '0.25rem 5rem',
 
         '& h1': {
@@ -34,7 +44,7 @@ export const HeaderWrapper = styled('div', {
     alignItems: 'center',
     gap: '1rem',
 
-    '@media (max-width: 820px)':{
+    '@media (max-width: 1024px)':{
         gap: '0.5rem',
     }
 })
@@ -52,7 +62,7 @@ export const InputContainer = styled('div', {
         display: 'none'
     },
 
-    '@media (max-width: 820px)':{
+    '@media (max-width: 1024px)':{
         padding: '0.1rem 0.25rem',
     }
 })

@@ -2,7 +2,7 @@ import { Header, saira } from "@/components/header/header";
 import { Button, Card, CardInfoWrapper, CartContainer, CartList, CartResume, Description, Links, PriceResume, QuantitySelect, TotalItems, UnitPrice, Wrapper } from "./cart.style";
 import BackPage from "@/components/back-pag/back-page";
 import { BinIcon } from "@/components/bin-icon";
-import { Line } from "@/components/card/card.style";
+import { Line } from "@/pages/homepage/partials/card/card.style";
 import CartContextProvider from "@/context/cartContext";
 import { ProductInCart } from "@/interfaces/product";
 import { getPriceInReal } from "@/utils/price-in-real";
@@ -62,8 +62,7 @@ export default function Cart(){
     }
 
     return(
-        <StoreContextProvider>
-        <CartContextProvider>
+       <>
             <Header />
             <CartContainer className={saira.className}>
                 <BackPage />
@@ -117,7 +116,6 @@ export default function Cart(){
                     </CartResume>
                 </Wrapper>
             </CartContainer>
-        </CartContextProvider>
-        </StoreContextProvider>
+        </>
     )
 }

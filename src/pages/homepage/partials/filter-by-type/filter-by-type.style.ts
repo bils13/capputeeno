@@ -10,6 +10,10 @@ export const LinkWrapper = styled('div', {
     alignItems: 'center',
     justifyContent: 'start',
     listStyle: 'none',
+
+    '@media (max-width: 1024px)': {
+        gap: '1rem',
+    }
 })
 
 export const Link = styled<NavLinkProps>('li',{

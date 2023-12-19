@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowIcon } from "../arrow-icon";
+import { ArrowIcon } from "../../../../components/arrow-icon";
 import { Menu, Options, Organize } from "./org-by-pref.style";
 import { useStore } from "@/hooks/useStore";
 

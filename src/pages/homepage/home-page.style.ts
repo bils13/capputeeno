@@ -6,7 +6,7 @@ export const HomePageContainer = styled('section', {
     padding: '2rem 10rem',
     minHeight: '100vh',
     
-    '@media (max-width: 768px)': {
+    '@media (max-width: 1024px)': {
         padding: '1rem 5rem',
     }
 })
@@ -17,8 +17,9 @@ export const NavContainer = styled('section', {
     justifyContent: 'space-between',
     alignItems: 'center',
 
-    '@media (max-width: 768px)': {
+    '@media (max-width: 1024px)': {
         flexDirection: 'column',
+        gap: '1rem',
     }
     
 })

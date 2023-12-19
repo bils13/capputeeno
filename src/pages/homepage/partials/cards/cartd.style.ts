@@ -9,4 +9,8 @@ export const CardsContainer = styled('section',{
     gridGap: '32px',
     justifyContent: 'space-between',
     marginBottom: '4.5rem',
+
+    '@media (max-width: 1024px)': {
+        justifyContent: 'center'
+    }
 })

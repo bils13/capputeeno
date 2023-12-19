@@ -1,6 +1,6 @@
 import { useStore } from "@/hooks/useStore";
 import { ArrowContainer, ArrowWrapper, PContainer, Page } from "./pagination.style";
-import { ArrowIcon } from "../arrow-icon";
+import { ArrowIcon } from "../../../../components/arrow-icon";
 
 const Pages = [
     {'option': 1, 'id':1},
