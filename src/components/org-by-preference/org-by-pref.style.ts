@@ -11,6 +11,10 @@ export const Organize = styled('div', {
 
     '& p':{
         fontSize: '16px',
+
+        '@media (max-width: 768px)': {
+            fontSize:'12px',
+        }
     },
 
     '&:hover': {

@@ -61,7 +61,7 @@ export const Card = styled('section', {
     display: 'flex', 
     'img': {
         width: '256px',
-        height: '211px',
+        height: '100%',
     }
 })
 
