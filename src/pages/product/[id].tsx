@@ -1,10 +1,8 @@
-import { Header, saira } from "@/components/header/header"
+import { Header } from "@/components/header/header"
 import { ProductContainer } from "./product.style"
-import { ProductDetails } from "@/components/product-details/product-details"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ProductDetails } from "@/pages/product/partials/product-details/product-details"
 import BackPage from "@/components/back-pag/back-page"
-
-const client = new QueryClient
+import { saira } from "@/utils/fonts"
 
 export default function Product(){
     return(

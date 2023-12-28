@@ -9,12 +9,21 @@ export const ProductContainerDetails = styled('div', {
     justifyContent: 'start',
     alignItems: 'center',
     gap: '2rem',
+
+    '@media (max-width: 1024px)':{
+        flexDirection: 'column',
+        height: '100%',
+    }
 })
 
 export const Image = styled('img', {
     height: 'inherit',
     width: '640px',
     borderRadius: '5px',
+
+    '@media only screen and (max-width: 768px)':{
+        width: '100%',
+    }
 })
 
 export const Details = styled('div', {
@@ -37,6 +46,10 @@ export const Details = styled('div', {
         color: 'var(--text-dark)',
         marginBottom: '4px',
     },
+
+    '@media only screen and (max-width: 768px)':{
+        width: '100%',
+    }
 })
 
 export const Price = styled('p', {
@@ -89,4 +102,11 @@ export const Button = styled('button', {
     gap: '0.5rem',
     cursor: 'pointer',
     bottom: '0',
+
+    '@media only screen and (max-width: 768px)':{
+        marginTop: '1rem',
+        position: 'relative',
+        marginBottom: '1rem',
+        padding: '10px 10px',
+    }
 })

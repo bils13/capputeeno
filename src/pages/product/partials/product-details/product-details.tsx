@@ -1,5 +1,5 @@
 import { Button, DescriptionWrapper, Details, Freight, Image, Price, ProductContainerDetails } from "./product-details.style";
-import { BagIcon } from "../bag-icon";
+import { BagIcon } from "../../../../components/bag-icon";
 import { useProduct } from "@/hooks/useProduct";
 import { useParams } from "next/navigation";
 import { getPriceInReal } from "@/utils/price-in-real";

@@ -1,55 +1,23 @@
-import { Header, saira } from "@/components/header/header";
-import { Button, Card, CardInfoWrapper, CartContainer, CartList, CartResume, Description, Links, PriceResume, QuantitySelect, TotalItems, UnitPrice, Wrapper } from "./cart.style";
+import { Header } from "@/components/header/header";
+import { Button, Card, CardInfoWrapper, CartContainer, CartList, CartResume, Description, Links, PriceResume, QuantitySelect, TotalItems, UnitPrice, Wrapper, WrapperCart } from "./cart.style";
 import BackPage from "@/components/back-pag/back-page";
 import { BinIcon } from "@/components/bin-icon";
 import { Line } from "@/pages/homepage/partials/card/card.style";
-import CartContextProvider from "@/context/cartContext";
 import { ProductInCart } from "@/interfaces/product";
 import { getPriceInReal } from "@/utils/price-in-real";
-import { useEffect, useState } from "react";
+import { saira } from "@/utils/fonts";
 import { useCart } from "@/hooks/useCart";
-import StoreContextProvider from "@/context/storeContext";
-
-type CartPriceType = string
 
 export default function Cart(){
-    const [cart, setCart] = useState<ProductInCart[]>([])
-    const [cartPrice, setCartPrice] = useState<CartPriceType>()
-    useEffect(() => {
-        const cartItems = localStorage.getItem('cart-items')
-        cartItems != null && setCart(JSON.parse(cartItems))       
-        attTotalCartPrice(JSON.parse(cartItems!)) 
-    }, [])
 
-    function handleDeleteItem(id: string){
-        const cartItems = [...cart]  
-        const indexItem = cartItems.findIndex((current: ProductInCart)  => current.id === id)
-        cartItems.splice(indexItem, 1)
-        setCart([...cartItems])
-        localStorage.setItem('cart-items', JSON.stringify(cartItems))
-        attTotalCartPrice(cartItems)
-    }
-
-    const attTotalCartPrice = (cart: ProductInCart[]) => {
-        const totalPrice = cart.reduce((total, produto) => {
-            return parseInt(produto.price_in_cents) * produto.quantity + total
-        }, 0)
-        setCartPrice(() => getPriceInReal(totalPrice))
-    }
-
-    const changeItemsQuantity = (id: string, quantitySelected: string) => { 
-        console.log(cart)    
-        cart.map((current) => 
-            current.id===id ? current.quantity = parseInt(quantitySelected) : ''
-        )
-        setCart([...cart])
-        attTotalCartPrice(cart)
-        localStorage.setItem('cart-items', JSON.stringify(cart))
-        console.log(cart.length)
-    }
+    const { carts, 
+            handleDeleteItem, 
+            changeItemsQuantity,
+            cartPrice } = useCart()
+    
 
     const listItemQuantity = (id: string) => {
-        const newCart = cart.find((cart) => cart.id === id)
+        const newCart = carts.find((cart) => cart.id === id)
         const newQuantity = []
         for(let i=1; i<=newCart!.quantity+2; i++){
             newQuantity.push(i)
@@ -66,12 +34,12 @@ export default function Cart(){
             <Header />
             <CartContainer className={saira.className}>
                 <BackPage />
-                <Wrapper>
+                <WrapperCart>
                     <CartList>
                         <h1>Seu carrinho</h1>
-                        <TotalItems>Total ({cart.length} produto{cart.length>1 ? 's': ''}) <span>{cartPrice ? `R$ ${cartPrice}` : ''}</span></TotalItems>
+                        <TotalItems>Total ({carts.length} produto{carts.length>1 ? 's': ''}) <span>{cartPrice ? `R$ ${cartPrice}` : ''}</span></TotalItems>
                         {
-                        cart.map((item: ProductInCart) => (
+                        carts.map((item: ProductInCart) => (
                             <Card key={item.id}>
                                 <img src={item.image_url} alt={item.name} />
                                 <CardInfoWrapper>
@@ -85,7 +53,7 @@ export default function Cart(){
                                             { listItemQuantity(item.id) } 
                                         </QuantitySelect>
                                         <UnitPrice>R$ {getPriceInReal(parseInt(item.price_in_cents) * item.quantity)}</UnitPrice>
-                                    </Wrapper>
+                                    </Wrapper>  
                                 </CardInfoWrapper>
                             </Card>
                         ))
@@ -114,7 +82,7 @@ export default function Cart(){
                             <Links margin='null'>Trocas e devoluções</Links>
                         </Wrapper>
                     </CartResume>
-                </Wrapper>
+                </WrapperCart>
             </CartContainer>
         </>
     )
