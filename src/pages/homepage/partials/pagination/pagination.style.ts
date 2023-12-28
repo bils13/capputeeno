@@ -15,6 +15,10 @@ export const PContainer = styled('section',{
     justifyContent: 'flex-end',
     alignItems: 'center',
     gap: '2px',
+    
+    '@media (max-width: 1024px)': {
+        justifyContent: 'center',
+    }
 })
 
 export const Page = styled<PageProps>('p',{
@@ -50,6 +54,10 @@ export const Page = styled<PageProps>('p',{
                 border: '2px solid var(--orange-low)',
             }
         }
+    },
+
+    '@media (max-width: 1024px)': {
+        fontSize: '0.8rem',
     },
 
     '&:hover':{

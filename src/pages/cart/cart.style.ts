@@ -6,6 +6,19 @@ export const CartContainer = styled('section', {
     width: '100%',
     padding: '2rem 10rem',
     minHeight: '100vh',
+
+    '@media (max-width: 768px)': {
+        padding: '0.25rem 5rem',
+    }
+})
+
+export const WrapperCart = styled('div', {
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    '@media (max-width: 768px)': {
+        flexDirection: 'column',
+    }
 })
 
 export const Wrapper = styled('div', {
@@ -62,13 +75,24 @@ export const Card = styled('section', {
     'img': {
         width: '256px',
         height: '100%',
+    },
+
+    '@media (max-width: 1024px)': {
+        flexDirection: 'column',
+        maxWidth: '100vw',
+        minWidth: '256px',
+
+        'img': {
+            minWidth: '256px',
+            height: '100%',
+        },
     }
 })
 
 export const CardInfoWrapper = styled('div', {
-    width: '736px',
     borderRadius: '0 8px 8px 0',
     background: 'var(--white)',
+    maxWidth: '738px',
     padding: '1rem',
 
     'h2': {
@@ -79,6 +103,14 @@ export const CardInfoWrapper = styled('div', {
         justifyContent: 'space-between',
         color: 'var(--text-dark)',
     },
+
+    '@media (max-width: 768px)': {
+        maxWidth: '258px',
+
+        'h2': {
+            fontSize: '16px',
+        }
+    }
 })
 
 export const Description = styled('p', {
@@ -86,11 +118,19 @@ export const Description = styled('p', {
     fontSize: '14px',
     fontWeight: '400',
     marginBottom: '1.5rem',
+
+    '@media (max-width: 768px)': {
+        fontSize: '12px',
+    }
 })
 
 export const UnitPrice = styled('p', {
     fontSize: '16px',
     fontWeight: '600',
+
+    '@media (max-width: 768px)': {
+        fontSize: '12px',
+    }
 })
 
 export const QuantitySelect = styled('select', {
@@ -114,7 +154,15 @@ export const CartResume = styled('div', {
         fontWeight: '600',
         textTransform: 'uppercase',
         marginBottom: '1.3rem',
+    },
+
+    '@media (max-width: 768px)': {
+        marginTop: '1rem',
+        width: '200px',
+        padding: '0.5rem 1rem',
+        height: '450px',
     }
+
 })
 
 export const PriceResume = styled('p', {
@@ -129,6 +177,10 @@ export const PriceResume = styled('p', {
                 color: 'black',
             }
         }
+    },
+
+    '@media (max-width: 768px)': {
+        fontSize: '12px',
     }
 })
 
@@ -151,6 +203,10 @@ export const Button = styled('button', {
     '&:hover':{ 
         background: '#408442',
         transition: '0.3s all',
+    },
+
+    '@media (max-width: 768px)': {
+        fontSize: '12px',
     }
 })
 
@@ -168,5 +224,9 @@ export const Links = styled('p', {
                 marginBottom: '0px',
             }
         }
+    },
+
+    '@media (max-width: 768px)': {
+        fontSize: '10px',
     }
 })

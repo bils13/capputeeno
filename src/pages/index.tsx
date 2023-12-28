@@ -1,18 +1,24 @@
-import StoreContextProvider from "@/context/storeContext";
-import { HomePage } from "./homepage/home-page";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import CartContextProvider, { CartContext } from "@/context/cartContext";
-
-const client = new QueryClient()
+import { Header } from "@/components/header/header";
+import { FilterByType } from "@/pages/homepage/partials/filter-by-type/filter-by-type";
+import { OrganizeByPref } from "@/pages/homepage/partials/org-by-preference/org-by-pref";
+import { Pagination } from "@/pages/homepage/partials/pagination/pagination";
+import { Cards } from "@/pages/homepage/partials/cards/cards";
+import { HomePageContainer, NavContainer } from "./homepage/home-page.style";
+import { saira } from "@/utils/fonts";
 
 export default function Home() {
   return (
-    <QueryClientProvider client={client}>
-      <StoreContextProvider>
-        <CartContextProvider>
-          <HomePage />
-        </CartContextProvider>
-      </StoreContextProvider>
-    </QueryClientProvider>
+    <>
+      <Header />
+          <HomePageContainer className={saira.className}>
+              <NavContainer>
+                  <FilterByType />
+                  <OrganizeByPref />
+              </NavContainer>
+              <Pagination />
+              <Cards />
+              <Pagination />
+          </HomePageContainer>
+    </>
   )
 }
