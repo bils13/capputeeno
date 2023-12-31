@@ -9,7 +9,7 @@ interface CartContextProvider {
 type CartPriceType = string
 
 interface ContextProps {
-    handleSetCart: (product?: ProductProps, id?: any) => void,
+    handleSetCart: (product?: ProductProps, id: string) => void,
     handleDeleteItem: (id: string) => void,
     changeItemsQuantity: (id: string, quantitySelected: string) => void,
     totalItems: number
@@ -35,7 +35,7 @@ function CartContextProvider({children}: CartContextProvider) {
         }
     }, [])
 
-    function handleSetCart(product?: ProductProps, id?: any){
+    function handleSetCart(product?: ProductProps, id: string){
         const cartItem = localStorage.getItem('cart-items') 
         if(cartItem){
             const prevCart = JSON.parse(cartItem)
@@ -54,7 +54,10 @@ function CartContextProvider({children}: CartContextProvider) {
             }           
         }else {
             const newItem = [{...product, 'quantity': 1, 'id': id}]
+            console.log(newItem)
             localStorage.setItem('cart-items', JSON.stringify(newItem))
+            setCarts(newItem)
+            attTotalItems(newItem)
         }
     }
 
