@@ -29,7 +29,6 @@ $ http://localhost:3333
 #### 📚 Bibliotecas utilizadas
 Algumas bibliotecas foram utilizadas a fim de aprimorar a performance e usabilidade, todas elas estão listadas abaixo:<br />
 Axios<br />
-React Content Loader<br />
 React Query<br />
 
 #### Contato:
